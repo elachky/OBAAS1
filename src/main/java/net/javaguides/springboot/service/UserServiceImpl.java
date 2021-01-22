@@ -25,7 +25,6 @@ import net.javaguides.springboot.web.dto.UserRegistrationDto;
 public class UserServiceImpl implements UserService{
 
 	private UserRepository userRepository;
-	private AccountRepository accountRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -57,16 +56,7 @@ public class UserServiceImpl implements UserService{
 	  return userRepository.save(user); 
 	}
 	
-	@Override
-	public Account saveAccount(AccountDto accountDto)
-	{
-		long accountNum = ( int )( Math.random() * 9999 ); if(accountNum <= 1000 ) accountNum = accountNum + 1000;
-		float balance = ( int )( Math.random() * 9999 ); if(balance <= 1000 ) balance = balance + 1000;
 
-		Account account = new Account(accountNum, balance, new User());
-		return accountRepository.save(account);
-
-	}
 	
 	/*
 	 * public User save(UserRegistrationDto registrationDto) { User user = new

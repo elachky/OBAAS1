@@ -10,7 +10,7 @@ public class AccountDto {
 	
 	private User user;
 
-	public AccountDto(long accountNumber, float balance, User user) {
+	public AccountDto(int accountNumber, int balance, User user) {
 		super();
 		this.accountNumber = accountNumber;
 		this.balance = balance;
@@ -29,7 +29,7 @@ public class AccountDto {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(long accountNumber) {
+	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
@@ -37,7 +37,7 @@ public class AccountDto {
 		return balance;
 	}
 
-	public void setBalance(float balance) {
+	public void setBalance(int balance) {
 		this.balance = balance;
 	}
 
