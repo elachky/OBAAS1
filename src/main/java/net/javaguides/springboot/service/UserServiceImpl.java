@@ -13,15 +13,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import net.javaguides.springboot.model.Account;
 import net.javaguides.springboot.model.User;
+import net.javaguides.springboot.repository.AccountRepository;
 import net.javaguides.springboot.repository.UserRepository;
 import net.javaguides.springboot.utils.Utils;
+import net.javaguides.springboot.web.dto.AccountDto;
 import net.javaguides.springboot.web.dto.UserRegistrationDto;
 
 @Service
 public class UserServiceImpl implements UserService{
 
 	private UserRepository userRepository;
+	private AccountRepository accountRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -38,7 +42,6 @@ public class UserServiceImpl implements UserService{
 	
 	  public User save(UserRegistrationDto registrationDto) 
 	{
-	  int randomNumber = ( int )( Math.random() * 9999 ); if(randomNumber <= 1000 ) randomNumber = randomNumber + 1000;
 	  
 	  User user = new User(
 			  registrationDto.getFirstName(),
@@ -52,6 +55,17 @@ public class UserServiceImpl implements UserService{
 			  1);
 	  
 	  return userRepository.save(user); 
+	}
+	
+	
+	public Account save(AccountDto accountDto)
+	{
+		long accountNum = ( int )( Math.random() * 9999 ); if(accountNum <= 1000 ) accountNum = accountNum + 1000;
+		float balance = ( int )( Math.random() * 9999 ); if(balance <= 1000 ) balance = balance + 1000;
+
+		Account account = new Account(accountNum, balance, new User());
+		return accountRepository.save(account);
+
 	}
 	
 	/*

@@ -13,7 +13,7 @@ public class Account
 	@Id
 	@GeneratedValue
 	private long id;
-	private String accountNumber;
+	private long accountNumber;
 	private float balance;
 	
 	@ManyToOne
@@ -30,14 +30,20 @@ public class Account
 	}
 	
 	
-	
-	
-	public Account(long id, String accountNumber, float balance) {
+
+
+
+
+
+	public Account(long accountNumber, float balance, User user) {
 		super();
-		this.id = id;
 		this.accountNumber = accountNumber;
 		this.balance = balance;
+		this.user = user;
 	}
+
+
+
 
 
 
@@ -48,10 +54,10 @@ public class Account
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getAccountNumber() {
+	public long getAccountNumber() {
 		return accountNumber;
 	}
-	public void setAccountNumber(String accountNumber) {
+	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 	public float getBalance() {
