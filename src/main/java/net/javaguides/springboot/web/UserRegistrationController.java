@@ -28,18 +28,34 @@ public class UserRegistrationController {
         return new UserRegistrationDto();
     }
 	
+	@ModelAttribute("account")
+    public AccountDto accountDto() {
+        return new AccountDto();
+    }
+	
+	/*
+	 * @PostMapping public String registerAccount(@ModelAttribute("account")
+	 * AccountDto accountDto) { userService.addAccount(accountDto);
+	 * 
+	 * return "redirect:/registration?success"; }
+	 */
 	@GetMapping
 	public String showWelcomePage() {
 		return "registration";
 	}
 	
 	@PostMapping
-	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) 
+	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto, @ModelAttribute("account") AccountDto accountDto) 
 	{
 		userService.save(registrationDto);
-		
-		
+	
 		
 		return "redirect:/registration?success";
 	}
+	
+	
+	
+	
+	
+	
 }

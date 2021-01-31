@@ -17,6 +17,10 @@ public class AccountDto {
 		this.user = user;
 	}
 
+	public AccountDto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getId() {
 		return id;
 	}

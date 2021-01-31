@@ -1,5 +1,6 @@
 package net.javaguides.springboot.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -12,15 +13,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class User 
+@Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+public class User implements Serializable 
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5009204590760838703L;
+
 	@Id
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
@@ -31,51 +38,48 @@ public class User
 	@Column(name = "last_name")
 	private String lastName;
 	
-	private String email;
+	private String username;
 	
 	private String phoneNumber;
 	
+	
+	@Column(nullable = false, length = 80)
 	private String address;
-	
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
-	private Collection<Account> accounts;
-	
-	
-	
 	
 	@Column(nullable = false)
 	private String userId;
 	
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	private Account account;
 	
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
 	@Column(nullable = false)
 	private String encryptedPassword;
 
-	@Column(nullable = true)
-	private String emailVerificationToken;
-
-	//@Column(nullable = false)
-	private Boolean emailVerificationStatus;
-	
 	@Column(nullable = false)
 	private int marketType;
 	
 	
-	
-	
-	
-	
-	
-	public User(String firstName, String lastName, String email, String phoneNumber, String address,
-			Collection<Account> accounts, String userId, String encryptedPassword, int marketType) {
+
+	public User(String firstName, String lastName, String username, String phoneNumber, String address,
+			Account account, String userId, String encryptedPassword, int marketType) 
+	{
 		super();
 		
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
+		this.username = username;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
-		this.accounts = accounts;
+		this.account = account;
 		this.userId = userId;
 		this.encryptedPassword = encryptedPassword;
 		this.marketType = marketType;
@@ -98,13 +102,7 @@ public class User
 		this.encryptedPassword = encryptedPassword;
 	}
 
-	public String getEmailVerificationToken() {
-		return emailVerificationToken;
-	}
 
-	public void setEmailVerificationToken(String emailVerificationToken) {
-		this.emailVerificationToken = emailVerificationToken;
-	}
 
 	public int getMarketType() {
 		return marketType;
@@ -139,21 +137,15 @@ public class User
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public Boolean getEmailVerificationStatus() {
-		return emailVerificationStatus;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
-		this.emailVerificationStatus = emailVerificationStatus;
-	}
+
+
 
 	public String getPhoneNumber() {
 		return phoneNumber;

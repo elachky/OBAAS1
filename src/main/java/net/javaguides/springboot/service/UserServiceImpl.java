@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import net.javaguides.springboot.model.Account;
 import net.javaguides.springboot.model.User;
@@ -24,7 +26,10 @@ import net.javaguides.springboot.web.dto.UserRegistrationDto;
 @Service
 public class UserServiceImpl implements UserService{
 
+	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private AccountRepository accountRepo;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -45,16 +50,36 @@ public class UserServiceImpl implements UserService{
 	  User user = new User(
 			  registrationDto.getFirstName(),
 			  registrationDto.getLastName(),
-			  registrationDto.getEmail(),
+			  registrationDto.getUsername(),
 			  registrationDto.getPhoneNumber(),
 			  registrationDto.getAddress(),
 			  registrationDto.getAccounts(),
 			  utils.generateStringId(15),
 			  passwordEncoder.encode(registrationDto.getPassword()),
-			  1);
+			  registrationDto.getMarketType());
+	  
+		int balance = ( int )( Math.random() * 9999 );
+		int accountNumber = ( int )( Math.random() * 999999999 );
+		if( balance <= 1000 ) balance = balance + 1000;
+	  user.setAccount(new Account(accountNumber, balance));
 	  
 	  return userRepository.save(user); 
 	}
+	
+	
+	@Override
+	public Account addAccount() 
+	{
+		int balance = ( int )( Math.random() * 9999 );
+		int accountNumber = ( int )( Math.random() * 999999999 );
+		if( balance <= 1000 ) balance = balance + 1000;
+				  
+		Account account = new Account(accountNumber, balance);
+		
+		return accountRepo.save(account);
+	}
+
+
 	
 
 	
@@ -81,12 +106,33 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	
-		User user = userRepository.findByEmail(username);
+		User user = userRepository.findByUsername(username);
 		if(user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
-		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getEncryptedPassword(), new ArrayList<>());		
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getEncryptedPassword(), new ArrayList<>());		
 	}
+
+	@Override
+	public void delete(String username) 
+	{
+		User user = userRepository.findByUsername(username);
+		if(user == null) throw new UsernameNotFoundException("Invalid username or password.");
+		userRepository.delete(user);
+		
+		
+	}
+	
+	
+	public UserRegistrationDto getUserByUserId(String userId) {
+		User user = userRepository.findByUserId(userId);
+		if (user == null) throw new UsernameNotFoundException(userId);
+		
+		UserRegistrationDto userDto = new UserRegistrationDto();
+		BeanUtils.copyProperties(user, userDto);
+		return userDto;
+	}
+
 
 
 

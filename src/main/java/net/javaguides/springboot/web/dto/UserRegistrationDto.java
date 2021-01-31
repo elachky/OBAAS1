@@ -11,12 +11,14 @@ import net.javaguides.springboot.model.Account;
 public class UserRegistrationDto {
 	private String firstName;
 	private String lastName;
-	private String email;
+	private String username;
 	private String password;
 	private double balance;
 	private int marketType;
 	private String phoneNumber;
 	private String address;
+	
+	
 	public String getAddress() {
 		return address;
 	}
@@ -25,7 +27,7 @@ public class UserRegistrationDto {
 		this.address = address;
 	}
 
-	private Collection<Account> accounts;
+	private Account account;
 	private String userId;
 	
 	
@@ -37,12 +39,12 @@ public class UserRegistrationDto {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Collection<Account> getAccounts() {
-		return accounts;
+	public Account getAccounts() {
+		return account;
 	}
 
-	public void setAccounts(Collection<Account> accounts) {
-		this.accounts = accounts;
+	public void setAccounts(Account account) {
+		this.account = account;
 	}
 
 	public String getUserId() {
@@ -57,12 +59,12 @@ public class UserRegistrationDto {
 		
 	}
 	
-	public UserRegistrationDto(String firstName, String lastName, String email, String password) 
+	public UserRegistrationDto(String firstName, String lastName, String username, String password) 
 	{
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
+		this.username = username;
 		this.password = password;
 	}
 	
@@ -78,11 +80,11 @@ public class UserRegistrationDto {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;
