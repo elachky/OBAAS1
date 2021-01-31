@@ -13,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-
 import net.javaguides.springboot.model.Account;
 import net.javaguides.springboot.model.User;
 import net.javaguides.springboot.repository.AccountRepository;
@@ -65,8 +63,6 @@ public class UserServiceImpl implements UserService{
 	  
 	  return userRepository.save(user); 
 	}
-	
-	
 	@Override
 	public Account addAccount() 
 	{
@@ -78,10 +74,6 @@ public class UserServiceImpl implements UserService{
 		
 		return accountRepo.save(account);
 	}
-
-
-	
-
 	
 	/*
 	 * public User save(UserRegistrationDto registrationDto) { User user = new

@@ -16,11 +16,9 @@ public class AccountDto {
 		this.balance = balance;
 		this.user = user;
 	}
-
 	public AccountDto() {
 		// TODO Auto-generated constructor stub
 	}
-
 	public long getId() {
 		return id;
 	}
@@ -52,9 +50,6 @@ public class AccountDto {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
-	
 	
 	
 }
