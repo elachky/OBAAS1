@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.javaguides.springboot.service.UserService;
+import net.javaguides.springboot.web.dto.AccountDto;
 import net.javaguides.springboot.web.dto.UserRegistrationDto;
 
 @Controller
@@ -15,6 +16,7 @@ import net.javaguides.springboot.web.dto.UserRegistrationDto;
 public class UserRegistrationController {
 
 	private UserService userService;
+	
 
 	public UserRegistrationController(UserService userService) {
 		super();
@@ -26,14 +28,34 @@ public class UserRegistrationController {
         return new UserRegistrationDto();
     }
 	
+	@ModelAttribute("account")
+    public AccountDto accountDto() {
+        return new AccountDto();
+    }
+	
+	/*
+	 * @PostMapping public String registerAccount(@ModelAttribute("account")
+	 * AccountDto accountDto) { userService.addAccount(accountDto);
+	 * 
+	 * return "redirect:/registration?success"; }
+	 */
 	@GetMapping
 	public String showWelcomePage() {
 		return "registration";
 	}
 	
 	@PostMapping
-	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
+	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto, @ModelAttribute("account") AccountDto accountDto) 
+	{
 		userService.save(registrationDto);
+	
+		
 		return "redirect:/registration?success";
 	}
+	
+	
+	
+	
+	
+	
 }
