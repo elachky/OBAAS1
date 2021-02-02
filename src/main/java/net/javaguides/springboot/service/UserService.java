@@ -11,5 +11,5 @@ public interface UserService extends UserDetailsService{
 	User save(UserRegistrationDto registrationDto);
   Account addAccount( );
 	public UserRegistrationDto getUserByUserId(String userId);
-	void delete(String userId);
+	void delete(int id);
 }

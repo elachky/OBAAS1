@@ -5,7 +5,7 @@ import net.javaguides.springboot.model.User;
 public class AccountDto {
 
 	private long id;
-	private long accountNumber;
+	private int accountNumber;
 	private float balance;
 	
 	private User user;
@@ -27,7 +27,7 @@ public class AccountDto {
 		this.id = id;
 	}
 
-	public long getAccountNumber() {
+	public int getAccountNumber() {
 		return accountNumber;
 	}
 

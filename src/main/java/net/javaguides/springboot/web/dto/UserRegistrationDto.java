@@ -13,11 +13,11 @@ public class UserRegistrationDto {
 	private String lastName;
 	private String username;
 	private String password;
-	private double balance;
 	private int marketType;
 	private String phoneNumber;
 	private String address;
-	
+	private Account account;
+	private String userId;
 	
 	public String getAddress() {
 		return address;
@@ -27,8 +27,7 @@ public class UserRegistrationDto {
 		this.address = address;
 	}
 
-	private Account account;
-	private String userId;
+	
 	
 	
 	public String getPhoneNumber() {
@@ -39,11 +38,11 @@ public class UserRegistrationDto {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Account getAccounts() {
+	public Account getAccount() {
 		return account;
 	}
 
-	public void setAccounts(Account account) {
+	public void setAccount(Account account) {
 		this.account = account;
 	}
 
@@ -101,11 +100,5 @@ public class UserRegistrationDto {
 		this.marketType = marketType;
 	}
 
-	public double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
+	
 }

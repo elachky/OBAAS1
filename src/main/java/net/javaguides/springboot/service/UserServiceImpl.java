@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
 			  registrationDto.getUsername(),
 			  registrationDto.getPhoneNumber(),
 			  registrationDto.getAddress(),
-			  registrationDto.getAccounts(),
+			  registrationDto.getAccount(),
 			  utils.generateStringId(15),
 			  passwordEncoder.encode(registrationDto.getPassword()),
 			  registrationDto.getMarketType());
@@ -106,11 +106,16 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void delete(String username) 
+	public void delete(int accountNumber) 
 	{
-		User user = userRepository.findByUsername(username);
-		if(user == null) throw new UsernameNotFoundException("Invalid username or password.");
+
+		Account account = accountRepo.findByAccountNumber(accountNumber);
+		if(account == null) throw new UsernameNotFoundException("Invalid username or password.");
+		
+		User user = userRepository.findByAccountId(account.getId());
+		if (user == null) throw new UsernameNotFoundException(account.getId()+"");
 		userRepository.delete(user);
+		accountRepo.delete(account);
 		
 		
 	}
@@ -119,11 +124,19 @@ public class UserServiceImpl implements UserService{
 	public UserRegistrationDto getUserByUserId(String userId) {
 		User user = userRepository.findByUserId(userId);
 		if (user == null) throw new UsernameNotFoundException(userId);
-		
 		UserRegistrationDto userDto = new UserRegistrationDto();
 		BeanUtils.copyProperties(user, userDto);
 		return userDto;
 	}
+	public AccountDto getAccountByAccountNumber(int accountNumber) {
+		Account account = accountRepo.findByAccountNumber(accountNumber);
+		if (account == null) throw new UsernameNotFoundException(accountNumber+"");
+		AccountDto accountDto = new AccountDto();
+		BeanUtils.copyProperties(account, accountDto);
+		return accountDto;
+	}
+
+
 
 
 

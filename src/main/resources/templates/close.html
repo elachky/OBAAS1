@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Registration</title>
+<title>Close</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -170,25 +170,13 @@ body {
 
 				<!-- success message -->
 				<div th:if="${param.success}">
-					<div class="alert alert-info">You've successfully registered
+					<div class="alert alert-info">You've successfully deleted
 						to your OBAAS account</div>
 				</div>
 
 				<h1>Create your account</h1>
 
-				<form th:action="@{/registration}" method="post" th:object="${user}">
-					<div class="form-group">
-						<label class="control-label" for="firstName"> First Name </label>
-						<input id="firstName" class="form-control" th:field="*{firstName}"
-							required autofocus="autofocus" />
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="lastName"> Last Name </label> <input
-							id="lastName" class="form-control" th:field="*{lastName}"
-							required autofocus="autofocus" />
-					</div>
-
+				<form th:action="@{/close}" method="post" th:object="${user}">
 					<div class="form-group">
 						<label class="control-label" for="username"> Username </label> <input
 							type="text" id="username" class="form-control"
@@ -202,33 +190,14 @@ body {
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="password"> Retype
-							Password </label> <input id="confirm_password" class="form-control"
-							type="password" required autofocus="autofocus" />
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="phone"> Phone number
-						</label> <input id="phone" class="form-control" type="text"
-							th:field="*{phoneNumber}" required autofocus="autofocus" />
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="address"> Address </label> <input
-							id="address" class="form-control" type="text"
-							th:field="*{address}" required autofocus="autofocus" />
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="password"> Market Type </label>
-						<input id="marketType" class="form-control" type="number"
-							th:field="*{marketType}" required autofocus="autofocus" />
+						<label class="control-label" for="accountNumber"> AccountNumber
+						</label> <input id="accountNumber" class="form-control" type="number"
+							th:field="*{account.accountNumber}" required autofocus="autofocus"/>
 					</div>
 
 					<div class="form-group">
 						<button type="submit" id="register" class="btn btn-success">Register</button>
-						<span>Already registered? <a href="/" th:href="@{/login}" id="loginhere">Login
-								here</a></span>
+						<button type="reset" id="clear" class="btn btn-success">Clear</button>
 					</div>
 				</form>
 			</div>
