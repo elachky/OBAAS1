@@ -9,7 +9,9 @@ import net.javaguides.springboot.web.dto.UserRegistrationDto;
 
 public interface UserService extends UserDetailsService{
 	User save(UserRegistrationDto registrationDto);
-  Account addAccount( );
+	Account addAccount( );
 	public UserRegistrationDto getUserByUserId(String userId);
 	void delete(int id);
+	String generatePassword(String string);
+	int transfer(String userId,int fromAccount,int toAccount,double balance);
 }

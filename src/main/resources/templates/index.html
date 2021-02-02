@@ -145,7 +145,6 @@ body {
 	</nav>
 
 
-
 	<br>
 	<br>
 	
@@ -163,6 +162,8 @@ body {
 						class="fas fa-user"></i>Create Account</a></li>
 				<li><a href="#" th:href="@{'/close'}"><i
 						class="fas fa-times-circle"></i>Close Account</a></li>
+				<li><a href="#" th:href="@{'/transfer'}"><i
+						class="fas fa-times-circle"></i>Money transfer</a></li>
 
 			</ul>
 
@@ -172,10 +173,10 @@ body {
 
 	<div style="margin: 200px 0px 0px 400px">
 		<p style="font-size: 2em;">
-			Thank You, <span style="font-weight: bolder">Mr</span> <span
-				style="font-weight: bolder" sec:authentication="principal.username">
+			Thank You, <span style="font-weight: bolder">Mr</span>
+			 <span style="font-weight: bolder" sec:authentication="principal.username">
 				User</span>. Your account is now created<br> in online access system.
-			Your account number is <br>### You can access
+			Your account number is <br> You can access
 			your account anytime and <br> from anywhere using this system.
 		</p>
 

@@ -168,12 +168,6 @@ body {
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 
-				<!-- success message -->
-				<div th:if="${param.success}">
-					<div class="alert alert-info">You've successfully deleted
-						to your OBAAS account</div>
-				</div>
-
 				<h1>Create your account</h1>
 
 				<form th:action="@{/close}" method="post" th:object="${user}">
@@ -204,21 +198,5 @@ body {
 		</div>
 	</div>
 
-
-	<script type="text/javascript">
-		var password = document.getElementById("password"), confirm_password = document
-				.getElementById("confirm_password");
-
-		function validatePassword() {
-			if (password.value != confirm_password.value) {
-				confirm_password.setCustomValidity("Passwords Don't Match");
-			} else {
-				confirm_password.setCustomValidity('');
-			}
-		}
-
-		password.onchange = validatePassword;
-		confirm_password.onkeyup = validatePassword;
-	</script>
 </body>
 </html>

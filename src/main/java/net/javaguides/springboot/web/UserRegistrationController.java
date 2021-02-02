@@ -43,7 +43,6 @@ public class UserRegistrationController {
 	public String showWelcomePage() {
 		return "registration";
 	}
-	
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto, @ModelAttribute("account") AccountDto accountDto) 
 	{

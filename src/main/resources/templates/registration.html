@@ -171,7 +171,8 @@ body {
 				<!-- success message -->
 				<div th:if="${param.success}">
 					<div class="alert alert-info">You've successfully registered
-						to your OBAAS account</div>
+						to your OBAAS account  <span><a href="/" th:href="@{/login}" id="loginhere">Login
+								here</a></span></div>
 				</div>
 
 				<h1>Create your account</h1>
@@ -227,8 +228,7 @@ body {
 
 					<div class="form-group">
 						<button type="submit" id="register" class="btn btn-success">Register</button>
-						<span>Already registered? <a href="/" th:href="@{/login}" id="loginhere">Login
-								here</a></span>
+						
 					</div>
 				</form>
 			</div>

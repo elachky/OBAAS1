@@ -35,7 +35,12 @@ public class UserDeletionController {
 	}
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) 
-	{
+	{	
+		//String username = registrationDto.getUsername();
+		//String Password = registrationDto.getPassword();
+		//System.out.println(username);
+		//System.out.println(userService.generatePassword(Password));
+		
 		userService.delete(registrationDto.getAccount().getAccountNumber());
 		return "redirect:/login?deletion";
 	}

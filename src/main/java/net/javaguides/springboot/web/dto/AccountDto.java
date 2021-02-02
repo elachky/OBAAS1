@@ -6,7 +6,7 @@ public class AccountDto {
 
 	private long id;
 	private int accountNumber;
-	private float balance;
+	private double balance;
 	
 	private User user;
 
@@ -35,12 +35,12 @@ public class AccountDto {
 		this.accountNumber = accountNumber;
 	}
 
-	public float getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
-		this.balance = balance;
+	public void setBalance(double d) {
+		this.balance = d;
 	}
 
 	public User getUser() {
