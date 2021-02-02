@@ -13,5 +13,4 @@ public interface UserService extends UserDetailsService{
 	public UserRegistrationDto getUserByUserId(String userId);
 	void delete(int id);
 	String generatePassword(String string);
-	int transfer(String userId,int fromAccount,int toAccount,double balance);
 }

@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Registration</title>
+<title>Close</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -168,20 +168,29 @@ body {
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 
-				<!-- success message -->
-				<div th:if="${param.success}">
-					<div class="alert alert-info">You've successfully registered
-						to your OBAAS account  <span><a href="/" th:href="@{/login}" id="loginhere">Login
-								here</a></span></div>
-				</div>
+				<h1>Demande de service</h1>
 
-				<h1>Create your account</h1>
-
-				<form th:action="@{/registration}" method="post" th:object="${user}">
+				<form th:action="@{/demandeService}" method="post" th:object="${user}">
+					<!-- success transfere -->
+					<div th:if="${param.transfer}">
+						<div class="alert alert-info">You've successfully transfered
+						your money.</div>
+					</div>
+					<!-- solde insuffisant -->
+					<div th:if="${param.soldeInsuf}">
+						<div class="alert alert-danger">Solde insuffisant !!
+						.</div>
+					</div>
+					<!-- error transfer -->
+					<div th:if="${param.transfErr}">
+						<div class="alert alert-danger">Accès refusé ou opération interdite !!.
+						</div>
+					</div>
+				
 					<div class="form-group">
 						<label class="control-label" for="username"> Username </label> <input
 							type="text" id="username" class="form-control"
-							th:field="*{username}" required autofocus="autofocus" />
+							name="username" required autofocus="autofocus" />
 					</div>
 
 					<div class="form-group">
@@ -191,53 +200,32 @@ body {
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="password"> Retype
-							Password </label> <input id="confirm_password" class="form-control"
-							type="password" required autofocus="autofocus" />
+						<label class="control-label" for="accountN"> AccountNumber
+						</label> <input id="fromAccount" class="form-control" type="number"
+							name="accountN" required autofocus="autofocus"/>
 					</div>
-
 					<div class="form-group">
-						<label class="control-label" for="phone"> Phone number
-						</label> <input id="phone" class="form-control" type="text"
-							th:field="*{phoneNumber}" required autofocus="autofocus" />
+						<label class="control-label" for="toAccount"> ServiceRequest
+						</label> <input list="services" name="browser" id="browser">
+						<datalist id="services">
+							<option value="émettre un nouveau carnet de chèques">
+							<option value="----">
+						</datalist>
 					</div>
-
 					<div class="form-group">
-						<label class="control-label" for="address"> Address </label> <input
-							id="address" class="form-control" type="text"
-							th:field="*{address}" required autofocus="autofocus" />
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="password"> Market Type </label>
-						<input id="marketType" class="form-control" type="text" value="U"
-							th:field="*{marketType}" required autofocus="autofocus" />
+						<label class="control-label" for="toAccount"> Amount
+						</label> <input id="toAccount" class="form-control" type="number"
+							name="balance" required autofocus="autofocus"/>
 					</div>
 
 					<div class="form-group">
 						<button type="submit" id="register" class="btn btn-success">Register</button>
-						
+						<button type="reset" id="clear" class="btn btn-success">Clear</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 
-
-	<script type="text/javascript">
-		var password = document.getElementById("password"), confirm_password = document
-				.getElementById("confirm_password");
-
-		function validatePassword() {
-			if (password.value != confirm_password.value) {
-				confirm_password.setCustomValidity("Passwords Don't Match");
-			} else {
-				confirm_password.setCustomValidity('');
-			}
-		}
-
-		password.onchange = validatePassword;
-		confirm_password.onkeyup = validatePassword;
-	</script>
 </body>
 </html>

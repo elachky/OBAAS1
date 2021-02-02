@@ -9,11 +9,9 @@ import javax.persistence.OneToMany;
 import net.javaguides.springboot.model.Account;
 
 public class UserRegistrationDto {
-	private String firstName;
-	private String lastName;
 	private String username;
 	private String password;
-	private int marketType;
+	private String marketType;
 	private String phoneNumber;
 	private String address;
 	private Account account;
@@ -58,27 +56,13 @@ public class UserRegistrationDto {
 		
 	}
 	
-	public UserRegistrationDto(String firstName, String lastName, String username, String password) 
+	public UserRegistrationDto(String username, String password) 
 	{
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 	}
 	
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -92,11 +76,11 @@ public class UserRegistrationDto {
 		this.password = password;
 	}
 
-	public int getMarketType() {
+	public String getMarketType() {
 		return marketType;
 	}
 
-	public void setMarketType(int marketType) {
+	public void setMarketType(String marketType) {
 		this.marketType = marketType;
 	}
 

@@ -1,5 +1,7 @@
 package net.javaguides.springboot.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +18,6 @@ import net.javaguides.springboot.web.dto.AccountDto;
 import net.javaguides.springboot.web.dto.UserRegistrationDto;
 
 @Controller
-@RequestMapping("/transfer")
 public class UserOperationController {
 
 	private UserService userService;
@@ -31,40 +32,39 @@ public class UserOperationController {
         return new UserRegistrationDto();
     }
 	
-	@GetMapping
-	public String showWelcomePage() {
-		return "transfere";
+	@GetMapping("payerFacture")
+	public String showWillPage(HttpServletRequest request) {
+		
+		return "facture";
 	}
-	/*@RequestMapping(value="/transfer", method=RequestMethod.PUT)
-	public void requestBalance(@RequestParam("balance") String balance) {
-		System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-		
-		System.out.println(balance);
-
-		System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-
-		
-	}*/
-	@PostMapping
-	public String registerUserAccount(@RequestParam("username") String username,@RequestParam("fromAccount") int fromAccount,@RequestParam("toAccount") int toAccount,@RequestParam("balance") double balance) 
-	{			
-		//System.out.println(registrationDto.getAccount().getAccountNumber());
-
+	@GetMapping("demandeService")
+	public String showServicePage() {
+		return "service";
+	}
+	@PostMapping("payerFacture")
+	public String payerFacture(@ModelAttribute("user") UserRegistrationDto registrationDto) 
+	{	
 		//String username = registrationDto.getUsername();
 		//String Password = registrationDto.getPassword();
 		//System.out.println(username);
 		//System.out.println(userService.generatePassword(Password));
-		int s=userService.transfer(username, fromAccount, toAccount, balance);
-		if(s==1) {
-			return "redirect:/transfer?transfer";
-		}else if(s==0) {
-			return "redirect:/transfer?soldeInsuf";
-		}else {
-			return "redirect:/transfer?transfErr";
-		}
-		//userService.delete(registrationDto.getAccount().getAccountNumber());
 		
+		userService.delete(registrationDto.getAccount().getAccountNumber());
+		return "redirect:/login?deletion";
 	}
+	@PostMapping("demandeService")
+	public String demandeService(@ModelAttribute("user") UserRegistrationDto registrationDto) 
+	{	
+		//String username = registrationDto.getUsername();
+		//String Password = registrationDto.getPassword();
+		//System.out.println(username);
+		//System.out.println(userService.generatePassword(Password));
+		
+		userService.delete(registrationDto.getAccount().getAccountNumber());
+		return "redirect:/login?deletion";
+	}
+	
+
 	
 	
 	

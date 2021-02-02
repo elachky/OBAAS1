@@ -46,8 +46,6 @@ public class UserServiceImpl implements UserService{
 	{
 	  
 	  User user = new User(
-			  registrationDto.getFirstName(),
-			  registrationDto.getLastName(),
 			  registrationDto.getUsername(),
 			  registrationDto.getPhoneNumber(),
 			  registrationDto.getAddress(),
@@ -138,39 +136,6 @@ public class UserServiceImpl implements UserService{
 		BeanUtils.copyProperties(account, accountDto);
 		return accountDto;
 	}
-
-	@Override
-	public int transfer(String userName, int fromAccount, int toAccount, double balance) {
-		Account account = accountRepo.findByAccountNumber(fromAccount);
-		User user = userRepository.findByUsername(userName);
-		//if (user == null) throw new UsernameNotFoundException(account.getId()+"");
-		if(account.getAccountNumber()==user.getAccount().getAccountNumber()&&balance>0) {
-			if(account.getBalance()>=balance) {
-				Account account2 = accountRepo.findByAccountNumber(toAccount);
-				account.setBalance(account.getBalance()-balance);
-				account2.setBalance(account2.getBalance()+balance);
-				accountRepo.save(account);
-				accountRepo.save(account2);
-				return 1;
-			}else {
-				return 0;
-				//solde insuffisant !!
-			}
-		}else {
-			return -1;
-			//compte inexiste ou vous avez pas le droit d'acces !!
-		}
-		
-
-			
-		}
-		
-
-
-
-
-
-
 
 	
 }
