@@ -2,6 +2,8 @@ package net.javaguides.springboot.web;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,15 +55,24 @@ public class UserOperationController {
 		return "redirect:/login?deletion";
 	}
 	@PostMapping("demandeService")
-	public String demandeService(@ModelAttribute("user") UserRegistrationDto registrationDto) 
+	public String demandeService(@RequestParam("username") String username,@RequestParam("service") String service,@RequestParam("accountN") int accountN) 
 	{	
 		//String username = registrationDto.getUsername();
 		//String Password = registrationDto.getPassword();
 		//System.out.println(username);
-		//System.out.println(userService.generatePassword(Password));
+		//System.out.println(userService.generatePassword(password));
 		
-		userService.delete(registrationDto.getAccount().getAccountNumber());
-		return "redirect:/login?deletion";
+		//System.out.println(userService.loadUserByUsername(username).getPassword());
+		//System.out.println(userService.loadUserByUsername(username).getUsername());
+		int s=userService.demandeService(username, service, accountN);
+		if(s==1) {
+			return "redirect:/demandeService?servir";
+		}else if(s==0) {
+			return "redirect:/demandeService?soldeInsuf";
+		}else {
+			return "redirect:/demandeService?servfErr";
+		}
+		//userService.delete(registrationDto.getAccount().getAccountNumber());
 	}
 	
 

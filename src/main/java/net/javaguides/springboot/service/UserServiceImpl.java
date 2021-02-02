@@ -137,5 +137,26 @@ public class UserServiceImpl implements UserService{
 		return accountDto;
 	}
 
+	@Override
+	public int demandeService(String username, String service, int accountN) {
+		
+		Account account = accountRepo.findByAccountNumber(accountN);
+		User user = userRepository.findByUsername(username);
+		if (user == null) throw new UsernameNotFoundException(account.getId()+"");
+		if(account!=null&&account.getAccountNumber()==user.getAccount().getAccountNumber()) {
+			if(account.getBalance()>=5) {
+				account.setBalance(account.getBalance()-5);
+				accountRepo.save(account);
+				return 1;
+			}else {
+				return 0;
+				//solde insuffisant !!
+			}
+		}else {
+			return -1;
+			//compte inexiste ou vous avez pas le droit d'acces !!
+		}
+	}
+
 	
 }
