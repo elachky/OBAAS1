@@ -37,7 +37,7 @@ public class UserDeletionController {
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) 
 	{
 		userService.delete(registrationDto.getAccount().getAccountNumber());
-		return "redirect:/close?success";
+		return "redirect:/login?deletion";
 	}
 	
 	

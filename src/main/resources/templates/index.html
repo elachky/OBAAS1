@@ -149,21 +149,6 @@ body {
 	<br>
 	<br>
 	
-		<div class="wrapper">
-    <div class="sidebar">
-        <h2>Menu</h2>
-        <ul>
-            <li><a href="#"><i class="fas fa-money-check-alt"></i>Account Balance</a></li>
-            <li><a href="#"><i class="fas fa-file-invoice-dollar"></i>Bill Pay</a></li>
-            <li><a href="#"><i class="fas fa-address-card"></i>Service Request</a></li>
-            <li><a href="#" th:href="@{/registration}"><i class="fas fa-user"></i>Create Account</a></li>
-            <li><a href="#" th:href="@{/close}"><i class="fas fa-times-circle"></i>Close Account</a></li>
-
-        </ul> 
-
-    </div>
-
-</div>
 	<div class="wrapper">
 		<div class="sidebar">
 			<h2>Menu</h2>
@@ -176,7 +161,7 @@ body {
 						Request</a></li>
 				<li><a href="#" th:href="@{/registration}"><i
 						class="fas fa-user"></i>Create Account</a></li>
-				<li><a href="#" th:href="@{'/close'}" onclick="return confirm('Are you sure you want to delete {{ user.id }}?')"><i
+				<li><a href="#" th:href="@{'/close'}"><i
 						class="fas fa-times-circle"></i>Close Account</a></li>
 
 			</ul>

@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService{
 		int accountNumber = ( int )( Math.random() * 999999999 );
 		if( balance <= 1000 ) balance = balance + 1000;
 	  user.setAccount(new Account(accountNumber, balance));
-	  
 	  return userRepository.save(user); 
 	}
 	@Override

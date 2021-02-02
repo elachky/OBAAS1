@@ -48,6 +48,11 @@
 						<div class="alert alert-info">You have been logged out.</div>
 					</div>
 					
+					<!-- success deletion message  -->
+					<div th:if="${param.deletion}">
+						<div class="alert alert-info">You've successfully deleted
+						to your OBAAS account</div>
+					</div>
 					<div class = "form-group">
 						<label for ="username"> Username </label> :
 						<input type="text" class = "form-control" id ="username" name = "username"
