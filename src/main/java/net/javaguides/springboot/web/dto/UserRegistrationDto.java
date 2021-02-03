@@ -1,17 +1,11 @@
 package net.javaguides.springboot.web.dto;
 
-import java.util.Collection;
-
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-
 import net.javaguides.springboot.model.Account;
 
 public class UserRegistrationDto {
 	private String username;
 	private String password;
-	private String marketType;
+	private String marketType="U";
 	private String phoneNumber;
 	private String address;
 	private Account account;

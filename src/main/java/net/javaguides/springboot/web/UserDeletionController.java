@@ -2,19 +2,13 @@ package net.javaguides.springboot.web;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import net.javaguides.springboot.model.Account;
-import net.javaguides.springboot.model.User;
 import net.javaguides.springboot.service.UserService;
-import net.javaguides.springboot.web.dto.AccountDto;
 import net.javaguides.springboot.web.dto.UserRegistrationDto;
 
 @Controller

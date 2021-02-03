@@ -1,7 +1,6 @@
 package net.javaguides.springboot.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +39,7 @@ public class UserRegistrationController {
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto, @ModelAttribute("account") AccountDto accountDto) 
 	{
+		
 		if (userService.existUser(registrationDto.getUsername())!= 0) {
 			return "redirect:/registration?err";
 		}else {
