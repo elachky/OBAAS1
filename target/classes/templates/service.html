@@ -159,8 +159,6 @@ body {
 		</div>
 
 	</div>
-
-
 	<br>
 	<br>
 	<!-- Create HTML registration form -->
@@ -171,6 +169,12 @@ body {
 				<h1>Demande de service</h1>
 
 				<form th:action="@{/demandeService}" method="post" th:object="${user}">
+					<!-- error message -->
+					<div th:if="${param.error}">
+						<div class="alert alert-danger">Invalid username or
+							password.</div>
+					</div>
+				
 					<!-- success transfere -->
 					<div th:if="${param.servir}">
 						<div class="alert alert-info">Votre damande est envoye avec succes.
@@ -183,7 +187,7 @@ body {
 					</div>
 					<!-- error transfer -->
 					<div th:if="${param.servfErr}">
-						<div class="alert alert-danger">Acces refuse ou operation interdite !!.
+						<div class="alert alert-danger">Invalid account !!.
 						</div>
 					</div>
 				

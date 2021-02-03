@@ -2,21 +2,15 @@ package net.javaguides.springboot.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.javaguides.springboot.service.UserService;
-import net.javaguides.springboot.web.dto.AccountDto;
 import net.javaguides.springboot.web.dto.UserRegistrationDto;
 
 @Controller
@@ -35,7 +29,7 @@ public class UserOperationController {
     }
 	
 	@GetMapping("payerFacture")
-	public String showWillPage(HttpServletRequest request) {
+	public String payerFacture(HttpServletRequest request) {
 		
 		return "facture";
 	}
@@ -43,36 +37,60 @@ public class UserOperationController {
 	public String showServicePage() {
 		return "service";
 	}
-	@PostMapping("payerFacture")
-	public String payerFacture(@ModelAttribute("user") UserRegistrationDto registrationDto) 
-	{	
-		//String username = registrationDto.getUsername();
-		//String Password = registrationDto.getPassword();
-		//System.out.println(username);
-		//System.out.println(userService.generatePassword(Password));
+	@GetMapping("accountBalance")
+	public String accountBalance(HttpServletRequest request) {
 		
-		userService.delete(registrationDto.getAccount().getAccountNumber());
-		return "redirect:/login?deletion";
+		return "balance";
+	}
+	@PostMapping("accountBalance")
+	public String accountBalance(Model model,@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("accountN") int accountN) 
+	{	
+		if (userService.existUser(username)!= 0) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
+				double s=userService.demandeBalance(username, accountN);
+				if(s!=-1) {
+					model.addAttribute("balance", s);
+					return "redirect:/accountBalance?servir";
+				}else {
+					return "redirect:/accountBalance?servfErr";
+				}
+			}
+			}
+				return "redirect:/accountBalance?error";
+	}
+	@PostMapping("payerFacture")
+	public String payerFacture(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("accountN") int accountN,@RequestParam("amount") double amount) 
+	{	
+		if (userService.existUser(username)!= 0) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
+				double s=userService.payerFacture(username, accountN,amount);
+				if(s>-1) {
+					return "redirect:/payerFacture?payer";
+				}else if(s==-2){
+					return "redirect:/payerFacture?soldeInsuf";
+				}
+			}
+			}
+				return "redirect:/payerFacture?invalid";
 	}
 	@PostMapping("demandeService")
-	public String demandeService(@RequestParam("username") String username,@RequestParam("service") String service,@RequestParam("accountN") int accountN) 
+	public String demandeService(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("service") String service,@RequestParam("accountN") int accountN) 
 	{	
-		//String username = registrationDto.getUsername();
-		//String Password = registrationDto.getPassword();
-		//System.out.println(username);
-		//System.out.println(userService.generatePassword(password));
-		
-		//System.out.println(userService.loadUserByUsername(username).getPassword());
-		//System.out.println(userService.loadUserByUsername(username).getUsername());
-		int s=userService.demandeService(username, service, accountN);
-		if(s==1) {
-			return "redirect:/demandeService?servir";
-		}else if(s==0) {
-			return "redirect:/demandeService?soldeInsuf";
-		}else {
-			return "redirect:/demandeService?servfErr";
+		if (userService.existUser(username)!= 0) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
+			int s=userService.demandeService(username, service, accountN);
+			if(s==1) {
+				return "redirect:/demandeService?servir";
+			}else {
+				return "redirect:/demandeService?servfErr";
+			}
 		}
-		//userService.delete(registrationDto.getAccount().getAccountNumber());
+		}
+			return "redirect:/demandeService?error";
+
 	}
 	
 

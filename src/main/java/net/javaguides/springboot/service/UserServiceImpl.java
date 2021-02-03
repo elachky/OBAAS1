@@ -72,24 +72,6 @@ public class UserServiceImpl implements UserService{
 		return accountRepo.save(account);
 	}
 	
-	/*
-	 * public User save(UserRegistrationDto registrationDto) { User user = new
-	 * User(); BeanUtils.copyProperties(registrationDto, user);
-	 * 
-	 * //Parce que userDto contient les propr. disponibles dans notre Client API (ou
-	 * il y a juste first/last name, email...)
-	 * //user.setEncryptedPassword(bCrypyPasswordEncoder.encode(userDto.getPassword(
-	 * ))); user.setEncryptedPassword("bsbfsbfsnlcallwleqljelqjjejelj");
-	 * user.setUserId(utils.generateStringId(15));
-	 * 
-	 * //Generate a balance int randomNumber = ( int )( Math.random() * 9999 ); if(
-	 * randomNumber <= 1000 ) randomNumber = randomNumber + 1000;
-	 * user.setBalance(randomNumber);
-	 * 
-	 * User newUser = userRepo.save(user);
-	 * 
-	 * return newUser; }
-	 */
 	 
 
 	@Override
@@ -103,18 +85,19 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void delete(int accountNumber) 
+	public int delete(int accountNumber) 
 	{
 
 		Account account = accountRepo.findByAccountNumber(accountNumber);
-		if(account == null) throw new UsernameNotFoundException("Invalid username or password.");
-		
-		User user = userRepository.findByAccountId(account.getId());
-		if (user == null) throw new UsernameNotFoundException(account.getId()+"");
-		userRepository.delete(user);
-		accountRepo.delete(account);
-		
-		
+		if(account!= null) {
+			User user = userRepository.findByAccountId(account.getId());
+			if (user!= null) {
+				userRepository.delete(user);
+				accountRepo.delete(account);
+				return 0;
+			}	
+		}
+		return -1;
 	}
 	public String generatePassword(String pwd) {
 		
@@ -142,20 +125,53 @@ public class UserServiceImpl implements UserService{
 		
 		Account account = accountRepo.findByAccountNumber(accountN);
 		User user = userRepository.findByUsername(username);
-		if (user == null) throw new UsernameNotFoundException(account.getId()+"");
+		if (user == null) throw new UsernameNotFoundException(username);
 		if(account!=null&&account.getAccountNumber()==user.getAccount().getAccountNumber()) {
-			if(account.getBalance()>=5) {
-				account.setBalance(account.getBalance()-5);
-				accountRepo.save(account);
-				return 1;
-			}else {
-				return 0;
-				//solde insuffisant !!
-			}
+				
+			return 1;
+			
 		}else {
 			return -1;
 			//compte inexiste ou vous avez pas le droit d'acces !!
 		}
+	}
+public double demandeBalance(String username, int accountN) {
+		int s=demandeService(username,"u",accountN);
+		if(s==1) {
+			Account account = accountRepo.findByAccountNumber(accountN);
+			return account.getBalance(); 
+			
+		}else {
+			return -1;
+			//compte inexiste ou vous avez pas le droit d'acces !!
+		}
+	}
+	public int existUser(String username) {
+		User user = userRepository.findByUsername(username);
+		if (user!= null) {
+			return 1;
+		}else {
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public double payerFacture(String username, int accountN, double amount) {
+		double b=demandeBalance(username,accountN);
+		if(b==-1) {
+			return -1;
+		}else {
+			if(b>amount) {
+				Account account = accountRepo.findByAccountNumber(accountN);
+				account.setBalance(account.getBalance()-amount);
+				accountRepo.save(account);
+				return b;
+			}else {
+				return -2;
+			}
+		}
+		
 	}
 
 	

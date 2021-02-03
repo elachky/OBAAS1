@@ -1,5 +1,6 @@
 package net.javaguides.springboot.web;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,7 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import net.javaguides.springboot.model.Account;
+import net.javaguides.springboot.model.User;
 import net.javaguides.springboot.service.UserService;
 import net.javaguides.springboot.web.dto.AccountDto;
 import net.javaguides.springboot.web.dto.UserRegistrationDto;
@@ -34,15 +38,23 @@ public class UserDeletionController {
 		return "close";
 	}
 	@PostMapping
-	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) 
+	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto,@RequestParam("username") String username,@RequestParam("accountN") int accountN,@RequestParam("password") String password) 
 	{	
-		//String username = registrationDto.getUsername();
-		//String Password = registrationDto.getPassword();
-		//System.out.println(username);
-		//System.out.println(userService.generatePassword(Password));
 		
-		userService.delete(registrationDto.getAccount().getAccountNumber());
-		return "redirect:/login?deletion";
+			if (userService.existUser(username)!= 0) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
+			int s = userService.delete(accountN);
+			if(s==0) {
+				return "redirect:/login?deletion";
+			}else{
+				return "redirect:/close?inexiste";
+			}
+		
+		}
+		}
+			return "redirect:/close?inexiste";
+		
 	}
 	
 	
