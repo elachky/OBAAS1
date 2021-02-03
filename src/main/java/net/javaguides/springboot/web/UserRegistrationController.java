@@ -40,10 +40,12 @@ public class UserRegistrationController {
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto, @ModelAttribute("account") AccountDto accountDto) 
 	{
-		
+		if (userService.existUser(registrationDto.getUsername())!= 0) {
+			return "redirect:/registration?err";
+		}else {
 		userService.save(registrationDto);
-		
-		return "redirect:/registration?success";
+		return "redirect:/registration?success="+accountDto.getAccountNumber()+"&&user="+registrationDto.getUsername();
+		}
 	}
 	
 	

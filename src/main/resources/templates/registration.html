@@ -159,14 +159,18 @@
 				  <div th:if="${param.success}">
 					<div class="alert alert-info">
 						Thank You, <span style="font-weight: bolder">Mr.</span>
-						<span style="font-weight: bolder" sec:authentication="principal.username">
-							User</span>. Your account is now created in online access system. 
-						Your account number is . 
+						<span th:text="${param.user}">1</span> Your account is now created in online access system.  
+						Your account number is <span th:text="${param.success}">1</span>. 
 						You can access your account anytime 
 						and from anywhere using this system.
 						<span><a href="/" th:href="@{/login}" id="loginhere">Login now</a></span>
 					</div>
 				</div>
+				<!-- error message -->
+					<div th:if="${param.err}">
+						<div class="alert alert-danger">User exist !!.<span><a href="/" th:href="@{/login}" id="loginhere"> Login now?</a></span>
+						</div>
+					</div>
 				<h1 class="text-center">Create your account</h1>
 				<br>
 				<form th:action="@{/registration}" method="post" th:object="${user}">
