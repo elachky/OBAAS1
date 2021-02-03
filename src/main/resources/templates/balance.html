@@ -180,10 +180,9 @@
 					<!-- success transfer -->
 					<div th:if="${param.servir}">
 						<div class="alert alert-info">
-							Dear <span style="font-weight: bolder">Mr. </span> 
-							<span style="font-weight: bolder" sec:authentication="principal.username">
-							User</span>.
-							Your account balance is <span th:text="${balance}"></span> MAD.
+							Dear <b>Mr. </b> <span style="font-weight: bolder" sec:authentication="principal.username">User </span> 
+							.
+							Your account balance is <span th:text="${param.servir}">1</span> MAD.
 						</div>
 					</div>
 					<div class="form-group">

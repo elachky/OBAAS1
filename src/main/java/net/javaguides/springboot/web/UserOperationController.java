@@ -1,5 +1,10 @@
 package net.javaguides.springboot.web;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,15 +48,14 @@ public class UserOperationController {
 		return "balance";
 	}
 	@PostMapping("accountBalance")
-	public String accountBalance(Model model,@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("accountN") int accountN) 
+	public String accountBalance(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("accountN") int accountN) 
 	{	
 		if (userService.existUser(username)!= 0) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
 				double s=userService.demandeBalance(username, accountN);
 				if(s!=-1) {
-					model.addAttribute("balance", s);
-					return "redirect:/accountBalance?servir";
+					return "redirect:/accountBalance?servir="+s;
 				}else {
 					return "redirect:/accountBalance?servfErr";
 				}
@@ -60,14 +64,14 @@ public class UserOperationController {
 				return "redirect:/accountBalance?error";
 	}
 	@PostMapping("payerFacture")
-	public String payerFacture(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("accountN") int accountN,@RequestParam("amount") double amount) 
+	public String payerFacture(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("accountN") int accountN,@RequestParam("amount") double amount,@RequestParam("service") String service) 
 	{	
 		if (userService.existUser(username)!= 0) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
 				double s=userService.payerFacture(username, accountN,amount);
 				if(s>-1) {
-					return "redirect:/payerFacture?payer";
+					return "redirect:/payerFacture?payer="+amount+"&&s="+service;
 				}else if(s==-2){
 					return "redirect:/payerFacture?soldeInsuf";
 				}
@@ -75,6 +79,7 @@ public class UserOperationController {
 			}
 				return "redirect:/payerFacture?invalid";
 	}
+    
 	@PostMapping("demandeService")
 	public String demandeService(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("service") String service,@RequestParam("accountN") int accountN) 
 	{	

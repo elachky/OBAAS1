@@ -181,7 +181,7 @@
 						<div class="alert alert-info">
 							Dear <span style="font-weight: bolder">Mr. </span> 
 							<span style="font-weight: bolder" sec:authentication="principal.username">
-							User</span>. Your bill of  MAD to  has been successfully paid.
+							User</span>. Your bill of <span th:text="${param.payer}">1</span>  MAD to  <span th:text="${param.s}">1</span>  has been successfully paid on <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}">1</span>.
 						</div>
 					</div>
 					<div class="form-group">
@@ -201,7 +201,7 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="browser"> Biller
-						</label> <input list="billers" class="form-control" name="browser" id="browser">
+						</label> <input list="billers" class="form-control" name="service" id="browser">
 						<datalist id="billers">
 							<option value="XYZ">
 							<option value="ABC">

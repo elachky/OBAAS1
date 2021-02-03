@@ -128,12 +128,7 @@
 				</button>
 				<a class="navbar-brand" href="#" th:href="@{/}">OBAAS</a>
 			</div>
-			<div id="navbar" class="collapse navbar-collapse" style="float: right">
-				<ul class="nav navbar-nav">
-					<li style="color: white; margin: 15px;" sec:authentication="principal.username"></li>
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-				</ul>
-			</div>
+			
 		</div>
 	</nav>
 	<br>
@@ -161,10 +156,10 @@
 		<div class="row" style="margin-left: 200px">
 			<div class="col-md-6 col-md-offset-3">
 				<!-- success message -->
-				<div th:if="${param.success}">
+				  <div th:if="${param.success}">
 					<div class="alert alert-info">
 						Thank You, <span style="font-weight: bolder">Mr.</span>
-						<span style="font-weight: bolder" sec:authentication="principal.username">
+						<span style="font-weight: bolder" th:field="*{username}">
 						User</span>. Your account is now created in online access system. 
 						Your account number is . 
 						You can access your account anytime 

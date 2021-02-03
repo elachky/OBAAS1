@@ -33,12 +33,6 @@ public class UserRegistrationController {
         return new AccountDto();
     }
 	
-	/*
-	 * @PostMapping public String registerAccount(@ModelAttribute("account")
-	 * AccountDto accountDto) { userService.addAccount(accountDto);
-	 * 
-	 * return "redirect:/registration?success"; }
-	 */
 	@GetMapping
 	public String showWelcomePage() {
 		return "registration";
