@@ -159,8 +159,8 @@
 				  <div th:if="${param.success}">
 					<div class="alert alert-info">
 						Thank You, <span style="font-weight: bolder">Mr.</span>
-						<span style="font-weight: bolder" th:field="*{username}">
-						User</span>. Your account is now created in online access system. 
+						<span style="font-weight: bolder" sec:authentication="principal.username">
+							User</span>. Your account is now created in online access system. 
 						Your account number is . 
 						You can access your account anytime 
 						and from anywhere using this system.
