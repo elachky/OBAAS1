@@ -16,5 +16,4 @@ public interface UserService extends UserDetailsService{
 	int existUser(String username);
 	double demandeBalance(String username, int accountN);
 	double payerFacture(String username, int accountN, double amount);
-	int transfer(String userId,int fromAccount,int toAccount,double balance);
 }
