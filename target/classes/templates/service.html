@@ -153,6 +153,8 @@
 						class="fas fa-user"></i>Create account</a></li>
 				<li><a href="#" th:href="@{/close}"><i
 						class="fas fa-times-circle"></i>Close account</a></li>
+				<li><a href="#" th:href="@{/transferArgent}"><i
+						class="fas fa-times-circle"></i>Money transfer</a></li>
 			</ul>
 		</div>
 	</div>
@@ -175,13 +177,18 @@
 						<div class="alert alert-danger">Invalid account number.
 						</div>
 					</div>
+					<!-- solde insuffisant -->
+					<div th:if="${param.soldeInsuf}">
+						<div class="alert alert-danger">Insufficient balance.
+						</div>
+					</div>
 					<!-- success service -->
 					<div th:if="${param.servir}">
 						<div class="alert alert-info">
 							Dear <span style="font-weight: bolder">Mr. </span> 
 							<span style="font-weight: bolder" sec:authentication="principal.username">
 							User</span>. Your request for issue of a new cheque book has been successfully
-							accepted. You will receive your new cheque book within 1 week.
+							accepted. You will receive your new cheque book within 1 week. A fee of $5 has been deducted from your account for charges against issue of the cheque book.
 						</div>
 					</div>
 					<div class="form-group">
@@ -203,8 +210,7 @@
 						<label class="control-label" for="browser"> Service request
 						</label> <input list="services" class="form-control" name="service" id="browser">
 						<datalist id="services">
-							<option value="Request for a new cheque book">
-							<option value="----">
+							<option value="Request for a new cheque book" selected>
 						</datalist>
 					</div>
 					<br>

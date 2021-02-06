@@ -121,24 +121,31 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findByUsername(username);
 		if (user == null) throw new UsernameNotFoundException(username);
 		if(account!=null&&account.getAccountNumber()==user.getAccount().getAccountNumber()) {
-				
-			return 1;
-			
+			if(account.getBalance()>=5) {
+				account.setBalance(account.getBalance()-5);
+				accountRepo.save(account);
+				return 1;
+			}else {
+				return 0;
+				//solde insuffisant !!
+			}
 		}else {
 			return -1;
 			//compte inexiste ou vous avez pas le droit d'acces !!
 		}
 	}
 public double demandeBalance(String username, int accountN) {
-		int s=demandeService(username,"u",accountN);
-		if(s==1) {
-			Account account = accountRepo.findByAccountNumber(accountN);
-			return account.getBalance(); 
+	Account account = accountRepo.findByAccountNumber(accountN);
+	User user = userRepository.findByUsername(username);
+	if (user == null) throw new UsernameNotFoundException(username);
+	if(account!=null&&account.getAccountNumber()==user.getAccount().getAccountNumber()) {
 			
-		}else {
-			return -1;
-			//compte inexiste ou vous avez pas le droit d'acces !!
-		}
+		return account.getBalance(); 
+		
+	}else {
+		return -1;
+		//compte inexiste ou vous avez pas le droit d'acces !!
+	}		
 	}
 	public int existUser(String username) {
 		User user = userRepository.findByUsername(username);
@@ -158,7 +165,7 @@ public double demandeBalance(String username, int accountN) {
 		}else {
 			if(b>=amount) {
 				Account account = accountRepo.findByAccountNumber(accountN);
-				account.setBalance(account.getBalance()-amount);
+				account.setBalance(b-amount);
 				accountRepo.save(account);
 				return b;
 			}else {
@@ -167,6 +174,30 @@ public double demandeBalance(String username, int accountN) {
 		}
 		
 	}
+	@Override
+	public int transfer(String userName, int fromAccount, int toAccount, double balance) {
+		Account account = accountRepo.findByAccountNumber(fromAccount);
+		User user = userRepository.findByUsername(userName);
+		//if (user == null) throw new UsernameNotFoundException(account.getId()+"");
+		if(account!=null&&account.getAccountNumber()==user.getAccount().getAccountNumber()&&balance>0) {
+			if(account.getBalance()>=balance) {
+				Account account2 = accountRepo.findByAccountNumber(toAccount);
+				if(account2==null)
+					return -1;
+				account.setBalance(account.getBalance()-balance);
+				account2.setBalance(account2.getBalance()+balance);
+				accountRepo.save(account);
+				accountRepo.save(account2);
+				return 1;
+			}else {
+				return 0;
+				//solde insuffisant !!
+			}
+		}else {
+			return -1;
+			//compte inexiste ou vous avez pas le droit d'acces !!
+		}
+		}
 
 	
 }

@@ -41,6 +41,11 @@ public class UserOperationController {
 		
 		return "balance";
 	}
+	@GetMapping("transferArgent")
+	public String transferArgent(HttpServletRequest request) {
+		
+		return "transfere";
+	}
 	@PostMapping("accountBalance")
 	public String accountBalance(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("accountN") int accountN) 
 	{	
@@ -83,6 +88,8 @@ public class UserOperationController {
 			int s=userService.demandeService(username, service, accountN);
 			if(s==1) {
 				return "redirect:/demandeService?servir";
+			}else if(s==0){
+				return "redirect:/demandeService?soldeInsuf";
 			}else {
 				return "redirect:/demandeService?servfErr";
 			}
@@ -92,9 +99,24 @@ public class UserOperationController {
 
 	}
 	
+	@PostMapping("transferArgent")
+	public String transferArgent(@RequestParam("username") String username,@RequestParam("fromAccount") int fromAccount,@RequestParam("toAccount") int toAccount,@RequestParam("balance") double balance,@RequestParam("password") String password) 
+	{	
+		if (userService.existUser(username)!= 0) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
+			int s=userService.transfer(username, fromAccount, toAccount, balance);
+			if(s==1) {
+				return "redirect:/transferArgent?transfer="+balance+"&&to="+toAccount;
+			}else if(s==0) {
+				return "redirect:/transferArgent?soldeInsuf";
+			}else {
+				return "redirect:/transferArgent?transfErr";
+			}
+		}
+		}
+		return "redirect:/transferArgent?error";
+	}
+	
 
-	
-	
-	
-	
 }

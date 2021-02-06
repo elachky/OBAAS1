@@ -147,6 +147,8 @@
 						class="fas fa-user"></i>Create account</a></li>
 				<li><a href="#" th:href="@{/close}"><i
 						class="fas fa-times-circle"></i>Close account</a></li>
+				<li><a href="#" th:href="@{/transferArgent}"><i
+						class="fas fa-times-circle"></i>Money transfer</a></li>
 			</ul>
 		</div>
 	</div>
@@ -159,7 +161,7 @@
 				  <div th:if="${param.success}">
 					<div class="alert alert-info">
 						Thank You, <span style="font-weight: bolder">Mr.</span>
-						<span th:text="${param.user}">1</span> Your account is now created in online access system.  
+						<b><span th:text="${param.user}">1</span></b> Your account is now created in online access system.  
 						Your account number is <span th:text="${param.success}">1</span>. 
 						You can access your account anytime 
 						and from anywhere using this system.
