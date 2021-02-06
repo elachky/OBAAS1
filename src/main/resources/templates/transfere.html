@@ -1,15 +1,14 @@
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Money transfer</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-
-<style>
+	<meta charset="UTF-8">
+	<title>Money transfer</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<style>
 	@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
 	
 	*{
@@ -114,10 +113,9 @@
 	
 	.clearall{float:left;}
 	#submitreq{float:right;}
-	</style>
+	</style>	
 </head>
 <body>
-
 	<!-- create navigation bar ( header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -125,17 +123,23 @@
 				<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#" th:href="@{/}">OBAAS</a>
 			</div>
+			<div id="navbar" class="collapse navbar-collapse" style="float: right">
+				<ul class="nav navbar-nav">
+					<li style="color: white; margin: 15px;" sec:authentication="principal.username"></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+				</ul>
+			</div>
 		</div>
 	</nav>
-
-
-
+	<br>
+	<br>
 	<div class="wrapper">
 		<div class="sidebar">
 			<h2>Menu</h2>
@@ -152,23 +156,17 @@
 						class="fas fa-times-circle"></i>Close Account</a></li>
 				<li><a href="#" th:href="@{/transferArgent}"><i
 						class="fas fa-times-circle"></i>Money transfer</a></li>
-
 			</ul>
-
 		</div>
-
 	</div>
-
-
 	<br>
 	<br>
 	<!-- Create HTML registration form -->
 	<div class="container">
-		<div class="row">
+		<div class="row" style="margin-left: 200px">
 			<div class="col-md-6 col-md-offset-3">
-
-				<h1>Money transfer</h1>
-
+				<h1 class="text-center">Money transfer</h1>
+				<br>
 				<form th:action="@{/transferArgent}" method="post" th:object="${user}">
 					<!-- success transfere -->
 					<div th:if="${param.transfer}">
@@ -189,27 +187,23 @@
 					</div>
 					<!-- solde insuffisant -->
 					<div th:if="${param.soldeInsuf}">
-						<div class="alert alert-danger">Solde insuffisant !!
-						.</div>
+						<div class="alert alert-danger">Insufficient balance.</div>
 					</div>
-					<!-- error transfer -->
+					<!-- error message -->
 					<div th:if="${param.transfErr}">
-						<div class="alert alert-danger">Invalid account !!.
+						<div class="alert alert-danger">Invalid account number.
 						</div>
 					</div>
-				
 					<div class="form-group">
 						<label class="control-label" for="username"> Username </label> <input
 							type="text" id="username" class="form-control"
 							name="username" required autofocus="autofocus" />
 					</div>
-
 					<div class="form-group">
 						<label class="control-label" for="password"> Password </label> <input
 							id="password" class="form-control" type="password"
 							th:field="*{password}" required autofocus="autofocus" />
 					</div>
-
 					<div class="form-group">
 						<label class="control-label" for="fromAccount"> FromAccount
 						</label> <input id="fromAccount" class="form-control" type="number"
@@ -225,15 +219,14 @@
 						</label> <input id="toAccount" class="form-control" type="number"
 							name="balance" required autofocus="autofocus"/>
 					</div>
-
+					<br>
 					<div class="form-group">
-						<button type="submit" id="register" class="btn btn-success">Register</button>
-						<button type="reset" id="clear" class="btn btn-success">Clear</button>
+						<button type="reset" id="clear" class="btn btn-primary">Clear</button>&nbsp; &nbsp;
+						<button type="submit" id="register" class="btn btn-primary">Register</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
