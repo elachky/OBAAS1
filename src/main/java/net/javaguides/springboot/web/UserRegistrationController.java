@@ -43,8 +43,7 @@ public class UserRegistrationController {
 		if (userService.existUser(registrationDto.getUsername())!= 0) {
 			return "redirect:/registration?err";
 		}else {
-		userService.save(registrationDto);
-		return "redirect:/registration?success="+accountDto.getAccountNumber()+"&&user="+registrationDto.getUsername();
+		return "redirect:/registration?success="+userService.save(registrationDto).getAccount().getAccountNumber()+"&&user="+registrationDto.getUsername();
 		}
 	}
 	
