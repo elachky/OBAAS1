@@ -156,7 +156,7 @@ public double demandeBalance(String username, int accountN) {
 		if(b==-1) {
 			return -1;
 		}else {
-			if(b>amount) {
+			if(b>=amount) {
 				Account account = accountRepo.findByAccountNumber(accountN);
 				account.setBalance(account.getBalance()-amount);
 				accountRepo.save(account);
