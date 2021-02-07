@@ -24,7 +24,7 @@ public class InscriptionChampsVide {
 	    WebElement confirme = driver.findElement(By.id("confirm_password"));
 	    WebElement phone = driver.findElement(By.id("phone"));
 	    WebElement address = driver.findElement(By.id("address"));
-	    WebElement market = driver.findElement(By.id("marketType"));
+	    //WebElement market = driver.findElement(By.id("marketType"));
 	    //button register
 	    WebElement register = driver.findElement(By.id("register"));
 	    
@@ -33,7 +33,7 @@ public class InscriptionChampsVide {
 	    confirme.sendKeys("123456789");
 	    phone.sendKeys("0666363636");
 	    address.sendKeys("");
-	    market.sendKeys("0");
+	    //market.sendKeys("0");
 	    register.click();
 	    
 	    
