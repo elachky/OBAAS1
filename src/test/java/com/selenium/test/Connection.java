@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class CloseAccountTest {
+public class Connection {
 
 	public static void main(String[] args) throws InterruptedException {
 		
@@ -14,7 +14,7 @@ public class CloseAccountTest {
 	    WebDriver driver = new ChromeDriver();
 	    
 
-	    driver.get("http://localhost:8888/");
+	    driver.get("http://localhost:8881/");
 	    
 	    WebElement LoginUsername = driver.findElement(By.id("username"));
 	    WebElement LoginPassword = driver.findElement(By.id("password"));
@@ -24,17 +24,9 @@ public class CloseAccountTest {
 	    LoginPassword.sendKeys("123456789");
 	    submitLogin.click();
 	    
-	    driver.get("http://localhost:8888/");
-	    WebElement closeUsername = driver.findElement(By.id("username"));
-	    WebElement closePassword = driver.findElement(By.id("password"));
-	    WebElement closeAccountNumber = driver.findElement(By.id("accountNumber"));
-	    WebElement closeSubmit= driver.findElement(By.id("register"));
-	    
-	    closeUsername.sendKeys("samir_rachidi");
-	    closePassword.sendKeys("123456789");
-	    closeAccountNumber.sendKeys("891344215");
-
-	    closeSubmit.click();
+	    Thread.sleep(50000);
+	    driver.quit();
+		
 
 	}
 

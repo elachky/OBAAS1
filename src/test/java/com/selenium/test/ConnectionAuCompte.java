@@ -5,16 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class loginTest {
+public class ConnectionAuCompte {
 
-	public static void main(String[] args) throws InterruptedException {
-		
-		
+	
+	public void login() {
 		System.setProperty("webdriver.chrome.driver","C:\\Users\\radid\\Desktop\\driver\\chromedriver.exe");
 	    WebDriver driver = new ChromeDriver();
 	    
 
-	    driver.get("http://localhost:8888/");
+	    driver.get("http://localhost:8881/");
 	    
 	    WebElement LoginUsername = driver.findElement(By.id("username"));
 	    WebElement LoginPassword = driver.findElement(By.id("password"));
@@ -23,11 +22,15 @@ public class loginTest {
 	    LoginUsername.sendKeys("samir_rachidi");
 	    LoginPassword.sendKeys("123456789");
 	    submitLogin.click();
-	    
-	    Thread.sleep(50000);
-	    driver.quit();
+	}
+	
+	
+	public static void main(String[] args) throws InterruptedException {
 		
-
+		
+		ConnectionAuCompte l=new ConnectionAuCompte();
+		l.login();
+	   
 	}
 
 }
