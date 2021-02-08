@@ -12,6 +12,7 @@
 	<groupId>com.course.first</groupId>
 	<artifactId>FirstSpringProject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>FirstSpringProject</name>
 	<description>First project in Spring Boot</description>
 
