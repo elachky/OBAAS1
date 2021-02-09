@@ -10,7 +10,7 @@ public interface UserService extends UserDetailsService{
 	User save(UserRegistrationDto registrationDto);
 	Account addAccount( );
 	public UserRegistrationDto getUserByUserId(String userId);
-	int delete(int id);
+	int delete(String username, int id);
 	String generatePassword(String string);
 	int demandeService(String username, String service, int accountN);
 	int existUser(String username);
