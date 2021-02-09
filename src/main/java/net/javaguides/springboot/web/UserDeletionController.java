@@ -34,21 +34,16 @@ public class UserDeletionController {
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto,@RequestParam("username") String username,@RequestParam("accountN") int accountN,@RequestParam("password") String password) 
 	{	
-		
-			if (userService.existUser(username)!= 0) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
-			int s = userService.delete(accountN);
-			if(s==0) {
-				return "redirect:/login?deletion";
-			}else{
-				return "redirect:/close?inexiste";
+		if (userService.existUser(username)!= 0) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			if(passwordEncoder.matches(password,userService.loadUserByUsername(username).getPassword())) {
+				int s = userService.delete(username, accountN);
+				if(s==0) {
+					return "redirect:/login?deletion";
+				}
 			}
-		
 		}
-		}
-			return "redirect:/close?inexiste";
-		
+		return "redirect:/close?invalid";
 	}
 	
 	

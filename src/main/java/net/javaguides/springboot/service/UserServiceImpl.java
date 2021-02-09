@@ -79,12 +79,11 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int delete(int accountNumber) 
+	public int delete(String username, int accountNumber) 
 	{
-
 		Account account = accountRepo.findByAccountNumber(accountNumber);
-		if(account!= null) {
-			User user = userRepository.findByAccountId(account.getId());
+		User user = userRepository.findByUsername(username);
+		if(account!= null&&account.getAccountNumber()==user.getAccount().getAccountNumber()) {
 			if (user!= null) {
 				userRepository.delete(user);
 				accountRepo.delete(account);
