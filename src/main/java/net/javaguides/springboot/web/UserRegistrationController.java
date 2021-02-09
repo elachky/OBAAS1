@@ -37,7 +37,7 @@ public class UserRegistrationController {
 		return "registration";
 	}
 	@PostMapping
-	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto, @ModelAttribute("account") AccountDto accountDto) 
+	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) 
 	{
 		
 		if (userService.existUser(registrationDto.getUsername())!= 0) {

@@ -32,7 +32,7 @@ public class UserDeletionController {
 		return "close";
 	}
 	@PostMapping
-	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto,@RequestParam("username") String username,@RequestParam("accountN") int accountN,@RequestParam("password") String password) 
+	public String registerUserAccount(@RequestParam("username") String username,@RequestParam("accountN") int accountN,@RequestParam("password") String password) 
 	{	
 		
 		if (userService.existUser(username)!= 0) {

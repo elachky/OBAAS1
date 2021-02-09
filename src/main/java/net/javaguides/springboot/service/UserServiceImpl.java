@@ -82,8 +82,10 @@ public class UserServiceImpl implements UserService{
 	public int delete(String username, int accountNumber) 
 	{
 		Account account = accountRepo.findByAccountNumber(accountNumber);
+		
 		User user = userRepository.findByUsername(username);
-		if(account!= null&&account.getAccountNumber()==user.getAccount().getAccountNumber()) {
+		
+		if(account!= null) {
 			if (user!= null) {
 				userRepository.delete(user);
 				accountRepo.delete(account);
