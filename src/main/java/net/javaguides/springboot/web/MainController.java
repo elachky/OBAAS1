@@ -37,13 +37,5 @@ public class MainController
 		model.addAttribute("accountNumber",userService.getUserByUserName(username).getAccount().getAccountNumber());
 		return "index";
 	}
-	@PostMapping()
-	public String afficherPageAccuiel() 
-	{	
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(principal);
-				return "redirect:/?ac="+principal;
-	}
-	
 
 }
