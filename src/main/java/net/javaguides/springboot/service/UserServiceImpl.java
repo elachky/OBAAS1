@@ -98,9 +98,9 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	
-	public UserRegistrationDto getUserByUserId(String userId) {
-		User user = userRepository.findByUserId(userId);
-		if (user == null) throw new UsernameNotFoundException(userId);
+	public UserRegistrationDto getUserByUserName(String username) {
+		User user = userRepository.findByUserId(username);
+		if (user == null) throw new UsernameNotFoundException(username);
 		UserRegistrationDto userDto = new UserRegistrationDto();
 		BeanUtils.copyProperties(user, userDto);
 		return userDto;

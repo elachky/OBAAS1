@@ -166,8 +166,8 @@
 	<div class="container" style="margin-left: 250px;">
 		<p style="font-size: 2em;">
 			Welcome <span style="font-weight: bolder">Mr.</span> 
-			<span style="font-weight: bolder" sec:authentication="principal.username">User</span>
-			to your OBAAS Account, What would you like to do?
+			<span style="font-weight: bolder" th:text="${username}">User</span>
+			to your OBAAS Account <span style="font-weight: bolder" th:text="${accountNumber}">accountNumber</span>, What would you like to do?
 		</p>
 	</div>
 </body>
